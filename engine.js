@@ -23,9 +23,8 @@ window.addEventListener('load', function(){
             return;
         }
            
-
+      
         number = Concatenation(number, e.target.dataset.button);
-
         DisplayShow(number);
 
     });
