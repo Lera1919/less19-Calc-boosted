@@ -7,10 +7,17 @@ window.addEventListener('load', function(){
     let number = 0;
     let operation = '';
     let buffer = 0;
+    
+    let flag = '';
    
     panelDigitButtons.addEventListener('click', function(e){
-        // console.log('Панель цифр');
+ // console.log('Панель цифр');
         if (IsButton(e) === false) return;
+        if (flag === 'operate'){
+            number = 0;
+        }
+       
+        
         if (e.target.dataset.button === 'clear') {
             DisplayClear();
             ResetAll();
@@ -22,16 +29,38 @@ window.addEventListener('load', function(){
             DisplayShow(number);
             return;
         }
-           
+         
+        
+        // if (buffer == '') {
+        //     buffer = Calculate(number+operation);
+        //     DisplayShow(number);
+        //   console.log()
+        // }
+
+        // if (buffer == 'negative') {
+        //     number = Calculate(number+operation-buffer);
+        //     DisplayShow(number);
+        //   console.log()
+        // }
+
+        
+        // if (operation == '=') {
+        //     number =  DisplayShow(number);           
+        //   console.log()
+        // }
+
       
         number = Concatenation(number, e.target.dataset.button);
         DisplayShow(number);
-
+        // console.log(flag);
+        flag ='digit';
     });
 
     operationButtons.addEventListener('click', function(e){
         // console.log('Панель операций');
         if (IsButton(e) === false) return;
+        flag = 'operate';
+        
 
         if (e.target.dataset.button === '=') {
            number = operation !== '' ? Calculate(buffer+operation+number) : number;
@@ -41,16 +70,22 @@ window.addEventListener('load', function(){
            return;
         }
 
+
+       
+
         if (operation !== '') {
             number = Calculate(buffer+operation+number);
             DisplayShow(number);
           
         }
 
+        
+
         operation = e.target.dataset.button;
         buffer = number;
-        number = 0;
+       
 
+      
     });
 
     function IsButton(e){
